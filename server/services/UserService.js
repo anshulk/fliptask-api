@@ -42,7 +42,7 @@ class UserService extends CrudService {
         await authToken.destroy();
     }
 
-    create = async (data) => {
+    signup = async (data) => {
         const { firstName, lastName, email, password } = data;
         try {
             const user = await User.create({ firstName, lastName, email });
@@ -88,7 +88,7 @@ class UserService extends CrudService {
     logout = async (req) => {
         const authHeader = req.get("Authorization");
 
-        const splitHeader = authHeader.split(" ")
+        const splitHeader = authHeader.split(" ");
 
         if (splitHeader.length != 2) {
             throw "Failed to logout!";
@@ -104,6 +104,28 @@ class UserService extends CrudService {
             console.log("Logout error", authHeader, error)
             throw "Failed to logout!"
         }
+    }
+
+    update = async (user, data) => {
+        const updateableKeys = ['firstName', 'lastName'];
+        const updateObject = {};
+
+        for (let i in updateableKeys) {
+            const key = updateableKeys[i];
+            if (key in data) {
+                updateObject[key] = data[key];
+            }
+        }
+
+        await this.model.updateOne(updateObject, {
+            where: {
+                id: user.id
+            }
+        });
+
+        return {
+            message: "Updated!"
+        };
     }
 }
 

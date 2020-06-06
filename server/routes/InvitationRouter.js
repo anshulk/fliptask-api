@@ -1,6 +1,6 @@
-const CrudRouter = require("./base/CrudRouter");
+const BaseRouter = require("./base/BaseRouter");
 
-const invitationRouter = new CrudRouter("/invitation", InvitationController);
+const invitationRouter = new BaseRouter("/invitation", InvitationController);
 
 invitationRouter.mergeRoutes({
     "/invite": {

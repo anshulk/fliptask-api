@@ -1,11 +1,11 @@
-const CrudRouter = require("./base/CrudRouter");
+const BaseRouter = require("./base/BaseRouter");
 
-const userRouter = new CrudRouter("/user", UserController);
+const userRouter = new BaseRouter("/user", UserController);
 
 userRouter.mergeRoutes({
     "/signup": {
         post: [
-            UserController.create
+            UserController.signup
         ]
     },
     "/login": {

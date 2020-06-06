@@ -19,7 +19,12 @@ const Workspace = sequelize.define("workspace", {
 });
 
 Workspace.belongsTo(User, { foreignKey: "createdBy" });
+User.hasMany(Workspace);
+
 Workspace.belongsTo(Organisation);
+Organisation.hasMany(Workspace);
+
 Workspace.belongsTo(Team);
+Team.hasMany(Workspace);
 
 global.Workspace = Workspace;

@@ -1,9 +1,10 @@
-class CrudRouter {
-    constructor(basePath, controller) {
-        this.basePath = basePath;
-        this.controller = controller;
+const BaseRouter = require("./BaseRouter");
 
-        this.routes = {
+class CrudRouter extends BaseRouter {
+    constructor(basePath, controller) {
+        super(basePath, controller);
+
+        this.mergeRoutes({
             "/": {
                 get: [
                     bearerAuth,
@@ -28,22 +29,7 @@ class CrudRouter {
                     this.controller.delete
                 ]
             }
-        };
-    }
-
-    mergeRoutes = async (routes) => {
-        this.routes = {
-            ...routes,
-            ...this.routes
-        }
-    }
-
-    register = async () => {
-        for (const endpoint in this.routes) {
-            for (const method in this.routes[endpoint]) {
-                expressApp[method](this.basePath+endpoint, this.routes[endpoint][method]);
-            }
-        }
+        });
     }
 }
 

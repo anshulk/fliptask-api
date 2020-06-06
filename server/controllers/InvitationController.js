@@ -1,7 +1,7 @@
-const CrudController = require("./base/CrudController");
 const Response = require("./base/Response");
+const BaseController = require("./base/BaseController");
 
-class InvitationController extends CrudController {
+class InvitationController extends BaseController{
     invite = async (req, res, next) => {
         try {
             if (!("organisationId" in req.body && "emailList" in req.body)) {
